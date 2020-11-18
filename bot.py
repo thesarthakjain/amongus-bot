@@ -6,6 +6,14 @@ token = os.environ.get('bot_token')
 client = commands.Bot(command_prefix='.')
 members = []
 
+def in_game():
+        async def predicate(ctx):
+            if ctx.author in members:
+                return (1)
+            else:
+                return (0)
+        return commands.check(predicate)
+
 @client.event
 async def on_ready():
     print('ready')
@@ -24,12 +32,14 @@ async def amongus(ctx):
         print(members)
 
 @client.command()
+@in_game()
 async def mute(ctx):
     for member in members:
         await member.edit(mute = True)
     await ctx.send('Shhhhhh...')
 
 @client.command()
+@in_game()
 async def unmute(ctx):
     for member in members:
         await member.edit(mute = False)
