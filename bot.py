@@ -107,4 +107,9 @@ async def remove(ctx, name = "all"):
             print(member.name)
             await ctx.send(member.name)
 
+@client.command(aliases = ['git'])
+async def github(ctx):
+    print('github command used')
+    await ctx.send("https://github.com/thesarthakjain/amongus-bot")
+
 client.run(token)
