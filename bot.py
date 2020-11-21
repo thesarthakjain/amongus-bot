@@ -30,8 +30,8 @@ async def on_ready():
 
 
 @client.command(aliases = ['a'])
-async def amongus(ctx):                 #to add yourself to a game
-    if ctx.author not in members:
+async def amongus(ctx):                 
+    if ctx.author not in members:       #to add yourself to game
         try:
             await ctx.author.edit(mute = False)
         except:
@@ -41,7 +41,7 @@ async def amongus(ctx):                 #to add yourself to a game
         for member in members:          #print list of players
             print(member.name)
             await ctx.send(member.name)
-    else:
+    else:                               #to remove yourself from game
         members.remove(ctx.author)
         try:
             await ctx.author.edit(mute = False)
@@ -79,7 +79,12 @@ async def unmute(ctx):
 
 @client.command(aliases = ['list', 'l'])
 async def _list(ctx):
-    for member in members:          #print list of players
+    print('list command used')
+    if members.count() == 0:            #if list is empty
+        print('list in empty')
+        await ctx.send('List is empty.')
+    else:                               #if there are members in the list
+        for member in members:          #print list of players
             print(member.name)
             await ctx.send(member.name)
 
@@ -87,14 +92,16 @@ async def _list(ctx):
 @client.command(aliases = ['r'])
 @is_owner()
 async def remove(ctx, name = "all"):
-    if name == "all":
+    await ctx.send('Removing...')
+    print('removing...')
+    if name == "all":               #to remove everyone
         for member in members:
             try:    
                 await member.edit(mute = False)
             except: 
                 print("can't unmute")
         members.clear()
-    else:
+    else:                           #to remove 1 person
         for member in members:
             print(member.name)
             if member.name == name:
@@ -106,6 +113,7 @@ async def remove(ctx, name = "all"):
         for member in members:          #print list of players
             print(member.name)
             await ctx.send(member.name)
+
 
 @client.command(aliases = ['git'])
 async def github(ctx):
