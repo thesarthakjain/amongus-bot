@@ -80,7 +80,6 @@ async def unmute(ctx):
 @client.command(aliases = ['list', 'l'])
 async def _list(ctx):
     print('list command used')
-    await ctx.send('list command used')
     if len(members) == 0:            #if list is empty
         print('list in empty')
         await ctx.send('List is empty.')
